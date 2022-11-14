@@ -7,6 +7,7 @@ $(function(){
 
 });
 
+
 function init(){
     var nom = window.location.pathname;
     nom = nom.split("/");
@@ -24,23 +25,23 @@ function init(){
         if (nom.includes("voyage")){
             document.getElementById("voyage").classList.add('active');
         }
-
-        }, 1000);
+    }, 1000);
 }
+
 
 function actionSousMenu(id) {
     var sousMenu = document.getElementById(id);
     var etat = sousMenu.style.display;
-    if (id.split("-")[1] != null){
+    if (id.split("-")[1] != null) {
         fermerSousMenu(id.split("-")[0]);
-    }else{
+    } else {
         fermerSousMenu();
     }
 
 
     if (etat == "block") {
         sousMenu.style.display = "none";
-    }else{
+    } else {
         sousMenu.style.display = "block";
     }
 
@@ -53,7 +54,7 @@ function fermerSousMenu(keepOpen) {
         sousMenu[i].style.display = "none";
     }
     if (sousMenuOuvert != null)
-    sousMenuOuvert.style.display = "block";
+        sousMenuOuvert.style.display = "block";
 
 
 }

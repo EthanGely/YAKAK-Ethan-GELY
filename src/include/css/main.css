@@ -17,6 +17,11 @@ html {
     scroll-behavior: smooth;
 }
 
+.ck-editor__editable[role="textbox"] {
+    /* editing area */
+    min-height: 16rem;
+}
+
 
 .warning {
     margin-bottom: 2rem;
@@ -392,7 +397,8 @@ h3 {
     width: 40%;
 }
 
-.labelGroup input {
+.labelGroup input, .labelGroup textarea {
+    font-family: sans-serif;
     display: block;
     width: 100%;
     padding: .375rem .75rem;

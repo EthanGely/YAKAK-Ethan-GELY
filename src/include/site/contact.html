@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="../images/logoYakak.svg" type="image/x-icon">
     <script src="../jquery/3.6.0/jquery.min.js"></script>
     <script src="../javaScript/initPage.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
 </head>
 <body>
 
@@ -61,7 +62,9 @@
             <div class="formGroup flex center">
                 <div class="labelGroup">
                     <label for="message">Message</label>
-                    <input type="text" name="message" id="message" placeholder="Qu'avez vous sur le coeur ?" required>
+                    <textarea name="message" id="message" rows="10" placeholder="Qu'avez vous sur le coeur ?" required></textarea>
+                    <!-- Ligne qui permet de créer une zone de texte avec outils de mise en page -->
+                    <script>ClassicEditor.create( document.querySelector( '#message' )).catch( error => {console.error( error );} );</script>
                 </div>
 
             </div>

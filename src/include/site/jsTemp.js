@@ -17,8 +17,8 @@ async function getDestinations() {
     const dest = localStorage.getItem('destinations');
     //S'il n'y a pas de destinations enregistrées, on ajoute la liste de base (contenue dans un fichier)
     //Et on met le contenu de cette liste dans le local storage
-    if (dest == undefined) {
-        const requestURL = '../data/destination.json';
+    if (dest === undefined || dest === "[]" || dest === "") {
+        const requestURL = 'src/include/data/destination.json';
         const request = new Request(requestURL);
 
         const response = await fetch(request);
@@ -66,7 +66,7 @@ function afficheDestinations() {
             if (destinations[i]["image"].includes("data:image/") || destinations[i]["image"].includes("https://") || destinations[i]["image"].includes("http://")) {
                 img.src = destinations[i]["image"];
             } else {
-                img.src = "../images/" + destinations[i]["image"];
+                img.src = "/src/include/images/" + destinations[i]["image"];
             }
             //Puis le texte alt de l'image sera "image" + destination
             img.alt = "Image " + destinations[i]["destination"];
@@ -216,18 +216,38 @@ function afficherWarning() {
 }
 
 
-function changeAdmin() {
+function changeAdmin(isError = false) {
+
+    //Le message de base (si pas d'erreur encore faite)
+    let msgPrompt = "Mot de passe";
+    //Si l'user vient de faire une tentative infructueuse
+    if (isError) {
+        msgPrompt = "Mot de passe erroné, réessayez";
+    }
+
     let btnAdmin = document.getElementById("changeAdmin");
+    let btnAddDest = document.getElementById("btnAddDest");
 
     if (isAdmin == false) {
-        isAdmin = true;
-        btnAdmin.innerHTML = "🔓";
-    }else {
+        let mdp = prompt(msgPrompt, "le mot de passe est 'mdp'");
+        //Cette condition vérifie que le mot de passe sont bien "mdp"
+        //Dans le contexte de ce site, la sécurisation du mot de passe n'est pas à faire (en plus on ne vérifie pas des mots de passe avec du JS, sinon le client a le code à sa disposition)
+        if (mdp === "mdp") {
+            isAdmin = true;
+            btnAdmin.innerHTML = "🔓";
+            btnAddDest.style.display = "initial";
+            afficherModeAdmin();
+        } else if (mdp != null) {
+            //On relance la fonction, true veut dire que le mdp n'est pas le bon
+            changeAdmin(true);
+        }
+    } else {
         isAdmin = false;
         btnAdmin.innerHTML = "🔒";
+        btnAddDest.style.display = "none";
         resetRows();
+        afficherModeAdmin();
     }
-    afficherModeAdmin();
 }
 
 
@@ -236,11 +256,10 @@ function afficherModeAdmin() {
     let thead = document.getElementById("trHeadDestination");
     let tableRows = tbody.children;
 
-    if (isAdmin){
+    if (isAdmin) {
         let tdHead = document.createElement("td");
         tdHead.innerHTML = "Edition";
         thead.appendChild(tdHead);
-
 
 
         for (let i = 0; i < tableRows.length; i++) {
@@ -248,19 +267,23 @@ function afficherModeAdmin() {
             let button = document.createElement("button");
             button.classList.add("btn");
             button.innerHTML = "éditer";
-            button.onclick = function() {modifierRow(tableRows[i])};
+            button.onclick = function () {
+                modifierRow(tableRows[i])
+            };
             tdBody.appendChild(button);
 
             let button2 = document.createElement("button");
             button2.classList.add("btn");
             button2.innerHTML = "❌";
-            button2.onclick = function() {deleteRow(tbody, tableRows[i], i)};
+            button2.onclick = function () {
+                deleteRow(tbody, tableRows[i], i)
+            };
             tdBody.appendChild(button2);
 
             tableRows[i].appendChild(tdBody);
         }
-    }else{
-        if (thead.lastChild.innerHTML === "Edition"){
+    } else {
+        if (thead.lastChild.innerHTML === "Edition") {
             thead.removeChild(thead.lastChild);
 
             for (let i = 0; i < tableRows.length; i++) {
@@ -268,8 +291,6 @@ function afficherModeAdmin() {
             }
         }
     }
-
-
 
 
 }
@@ -282,7 +303,7 @@ function modifierRow(tableRow) {
     for (let i = 1; i < tds.length - 2; i++) {
         if (tds[i].innerHTML.includes("input")) {
             needReset = true;
-        }else{
+        } else {
             let text = tds[i].innerHTML;
             tds[i].innerHTML = "";
             let input = document.createElement("input");
@@ -297,7 +318,7 @@ function modifierRow(tableRow) {
     }
 }
 
-function resetRows(){
+function resetRows() {
     let tbody = document.getElementById("bodyDestination");
     let trs = tbody.children;
     for (let i = 0; i < trs.length; i++) {
@@ -308,7 +329,7 @@ function resetRows(){
                 tds[j].innerHTML = text;
                 if (j == 1) {
                     destinations[i]["offre"] = text;
-                }else{
+                } else {
                     destinations[i]["prix"] = text;
                 }
             }
@@ -319,7 +340,7 @@ function resetRows(){
 }
 
 
-function ajouterDestination(){
+function ajouterDestination() {
     let nomDest = prompt("Entrez le nom de la destination :");
     if (nomDest != null && nomDest != "") {
         let image = prompt("Entrez le nom ou le lien de l'image :");

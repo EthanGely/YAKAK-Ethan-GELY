@@ -53,17 +53,24 @@
             //Structure souhaitée d'une destination
 
             <tr>
-                <td>Espagne<img src="../images/espagne.jpeg" alt="Espagne"></td>
+                <td>
+                    <div>
+                        <img src="src/include/images/espagne.jpeg" alt="Image Espagne">
+                        <p>Espagne</p>
+                    </div>
+                </td>
                 <td>Circuit plage, hôtel 4 *</td>
                 <td>800 €</td>
-                <td><button>Découvrir l'offre</button></td>
+                <td>
+                    <button class="destination">Découvrir l'offre</button>
+                </td>
             </tr>
 
             -->
             </tbody>
         </table>
 
-        <button class="btn" style="margin-top: 3rem" onclick="ajouterDestination()">Ajouter des detinations</button>
+        <button class="btn" id="btnAddDest" style="margin-top: 3rem; display: none" onclick="ajouterDestination()">Ajouter des detinations</button>
     </div>
 
 </div>
