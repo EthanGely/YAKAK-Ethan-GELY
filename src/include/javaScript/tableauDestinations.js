@@ -1,11 +1,15 @@
 //Variable globale qui contient les destinations du tableau
 var destinations = [];
+
+//Si l'utilisateur est en mode admin ou non (de base, non)
 var isAdmin = false;
+
+//Si les destinations sont affichées ou non dans le tableau
 var isShown = false;
 
 
 //Fonction lancée à l'initialisation
-function init2() {
+function initDestinations() {
     //On attend de récupérer les destinations, puis on les affiche
     getDestinations().then(r => afficheDestinations());
 }
@@ -13,10 +17,11 @@ function init2() {
 
 //Récupère un tableau de destinations via le localStorage ou un fichier s'il n'existe pas
 async function getDestinations() {
-    //On essaye de récuperer le local storage
+    //On essaye de récupérer les destinations du local storage
     const dest = localStorage.getItem('destinations');
+
     //S'il n'y a pas de destinations enregistrées, on ajoute la liste de base (contenue dans un fichier)
-    //Et on met le contenu de cette liste dans le local storage
+    //Et on met le contenu de cette liste dans le local storage.
     if (dest === undefined || dest === "[]" || dest === "" || dest === null) {
         const requestURL = '/src/include/data/destination.json';
         const request = new Request(requestURL);
@@ -32,25 +37,26 @@ async function getDestinations() {
 
         //Sinon, on utilise la liste enregistrée
     } else {
+        //Création des objets destination
         createDestinationsObjects(JSON.parse(dest));
 
     }
 }
 
+//Crée tous les objets destination, et les ajoute à la liste globale.
 function createDestinationsObjects(destFromStorage) {
+    //Pour chaque destination
     for (let i = 0; i < destFromStorage.length; i++) {
+        //On récupère la destination courante
         let currentDest = destFromStorage[i];
+        //Et on l'ajoute à la liste.
         destinations.push(new Destination(currentDest['image'], currentDest['destination'], currentDest['offre'], currentDest['prix']));
     }
 }
 
-function createDestinationJson() {
-
-}
-
 
 //Cette fonction ajoute les destinations contenues dans la variable globale "destinations".
-//Attention : Seules les elements contenus dans la variable seront affichés.
+//Attention : Seules les elements contenus dans la variable globale seront affichés.
 //Les autres éléments seront supprimés
 
 function afficheDestinations() {
@@ -59,6 +65,7 @@ function afficheDestinations() {
     let tbody = document.getElementById("bodyDestination");
     tbody.innerHTML = "";
 
+    //Si le tableau n'est pas affiché, on le crée avec les destinations de la variable globale
     if (!isShown) {
         let thead = document.getElementById("trHeadDestination");
 
@@ -128,8 +135,7 @@ function afficheDestinations() {
             afficherModeAdmin();
         }
     }
-
-
+    //Finalement, on inverse l'état du tableau (si affiché, on le masque, si masqué, on l'affiche).
     isShown = !isShown;
 }
 
@@ -139,10 +145,10 @@ function afficheDestinations() {
 // ATTENTION : bien noter qu'il y a un array imbriqué dans un autre array (comme si on stockait des objets "destination" dans un array).
 //  [
 //      {
-//          image : "espagne.png", //-- l'image doit être placée dans le dossier "images". Seul le nom et l'extension doivent être précisé (pas besoin du chemin). Le nom de l'image sera utilisé dans le "alt" --//
-//          destination : "Espagne", //-- Le nom de la destination (une majuscule est mise automatiquement). --//
+//          image : "espagne.png", //-- l'image doit être placée dans le dossier "images". Seul le nom et l'extension doivent être précisé (pas besoin du chemin). Le nom de l'image sera utilisé dans le "alt" Possiblité d'utiliser une URL vers une image --//
+//          destination : "Espagne", //-- Le nom de la destination (une majuscule est mise automatiquement au début). --//
 //          offre : "Circuit plage, hôtel 4 *", //-- description de l'offre --//
-//          prix : "800 €" //-- Prix de l'offre --//
+//          prix : "800 €" //-- Prix de l'offre (la devise n'est pas mise automatiquement --//
 //      },
 //
 //      {
@@ -157,11 +163,12 @@ function addDestinations(destinationsToAdd) {
     for (let i = 0; i < destinationsToAdd.length; i++) {
         //recherche dans un array sans casse
         if (destinations.find(({destination}) => destination.toLocaleLowerCase() === destinationsToAdd[i]["destination"].toLocaleLowerCase()) === undefined) {
-            //Si la destination n'existe pas, on l'ajoute à l'array
+            //Si la destination n'existe pas, on l'ajoute à l'array global.
             destinations.push(destinationsToAdd[i]);
         } else {
             //Sinon, si la destination existe,
             //On trouve son index, et on la remplace par la nouvelle
+            ///////NON FONCTIONNEL POUR L'INSTANT//////////
             console.log(destinations);
             const index = destinations.indexOf(destinationsToAdd[i]["destination"]);
             console.log(index)
@@ -179,45 +186,9 @@ function addDestinations(destinationsToAdd) {
     afficheDestinations();
 }
 
-//Fonction qui supprime une destination de la variable globale et du local storage via le nom de la destination
-//Puis affiche le résultat
-function removeDestination(destToRemove) {
-    const index = destinations.indexOf(destToRemove);
-    if (index > -1) {
-        destinations.splice(index, 1);
-        localStorage.setItem("destinations", JSON.stringify(destinations));
-        afficheDestinations();
-    }
-}
 
-
-/////////////Pour modifier le tableau via le navigateur///////////////////////
-
-//Supprime le contenu du local storage
-function clear() {
-    localStorage.clear();
-}
-
-///////////////////////////////////////////////////////
-
-
-function afficherWarning() {
-    let warnings = document.getElementsByClassName("warning");
-    var btn = document.getElementById("btnWarning");
-    for (let i = 0; i < warnings.length; i++) {
-        if (warnings[i].classList.contains("visuallyHidden")) {
-            warnings[i].classList.remove("visuallyHidden");
-            btn.innerHTML = "Masquer le message";
-        } else {
-            warnings[i].classList.add("visuallyHidden")
-            btn.innerHTML = "L'audio ne se lance pas automatiquement ?";
-
-        }
-
-    }
-}
-
-
+//Modifie le statut de la persone (et l'affichage dans la table)
+//Requiert un mot de passe (qui est : mdp)
 function changeAdmin(isError = false) {
 
     //Le message de base (si pas d'erreur encore faite)
@@ -230,7 +201,9 @@ function changeAdmin(isError = false) {
     let btnAdmin = document.getElementById("changeAdmin");
     let btnAddDest = document.getElementById("btnAddDest");
 
+    //Dévérouillage du mode admin
     if (isAdmin == false) {
+        //On demande le mot de passe
         let mdp = prompt(msgPrompt, "le mot de passe est 'mdp'");
         //Cette condition vérifie que le mot de passe sont bien "mdp"
         //Dans le contexte de ce site, la sécurisation du mot de passe n'est pas à faire (en plus on ne vérifie pas des mots de passe avec du JS, sinon le client a le code à sa disposition)
@@ -244,6 +217,7 @@ function changeAdmin(isError = false) {
             changeAdmin(true);
         }
     } else {
+        //Vérouillage du mode admin
         isAdmin = false;
         btnAdmin.innerHTML = "🔒";
         btnAddDest.style.display = "none";
@@ -252,7 +226,8 @@ function changeAdmin(isError = false) {
     }
 }
 
-
+//Affiche les différentes options du mode admin dans le tableau
+//En fonction de si la personne est admin ou non
 function afficherModeAdmin() {
     let tbody = document.getElementById("bodyDestination");
     let thead = document.getElementById("trHeadDestination");
@@ -297,6 +272,7 @@ function afficherModeAdmin() {
 
 }
 
+//Permet de rendre une ligne éditable
 function modifierRow(tableRow) {
     let tds = tableRow.children;
     let needReset = false;
@@ -320,6 +296,7 @@ function modifierRow(tableRow) {
     }
 }
 
+//Remet les lignes dans leur forme originale = désactive le mode modification pour toutes les lignes
 function resetRows() {
     let tbody = document.getElementById("bodyDestination");
     let trs = tbody.children;
@@ -341,7 +318,7 @@ function resetRows() {
     localStorage.setItem("destinations", JSON.stringify(destinations));
 }
 
-
+//Permet d'ajouter une destination via des messages sur la page
 function ajouterDestination() {
     let nomDest = prompt("Entrez le nom de la destination :");
     if (nomDest != null && nomDest != "") {
@@ -364,15 +341,26 @@ function ajouterDestination() {
     }
 }
 
-
+//Supprime une ligne (du tableau, de la variable globale, et du local storage
 function deleteRow(tbody, child, i) {
     tbody.removeChild(child);
-    destinations.pop(i);
+    destinations.splice(i, 1);
     localStorage.setItem("destinations", JSON.stringify(destinations));
 }
 
-
+//Sert à définir sur quelle destination l'utilisateur a cliqué
+//Et garde cette info dans le local storage
 function setSelectedDestination(nomDest) {
     localStorage.setItem("selectedDestination", nomDest);
     window.location.href = "destinationInfo.html";
 }
+
+
+/////////////Pour modifier le tableau via le navigateur///////////////////////
+
+//Supprime le contenu du local storage
+function clear() {
+    localStorage.clear();
+}
+
+///////////////////////////////////////////////////////

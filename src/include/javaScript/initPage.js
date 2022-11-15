@@ -66,3 +66,19 @@ function fermerSousMenu(keepOpen) {
 function toTop() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 }
+
+function afficherWarning() {
+    let warnings = document.getElementsByClassName("warning");
+    var btn = document.getElementById("btnWarning");
+    for (let i = 0; i < warnings.length; i++) {
+        if (warnings[i].classList.contains("visuallyHidden")) {
+            warnings[i].classList.remove("visuallyHidden");
+            btn.innerHTML = "Masquer le message";
+        } else {
+            warnings[i].classList.add("visuallyHidden")
+            btn.innerHTML = "L'audio ne se lance pas automatiquement ?";
+
+        }
+
+    }
+}
