@@ -14,6 +14,10 @@ function init(){
     nom = nom[nom.length - 1];
     nom = nom.substr(0, nom.lastIndexOf("."));
     nom = nom.replace(new RegExp("(%20|_|-)", "g"), "");
+    if (nom.includes("destinationInfo")) {
+        document.getElementById("destinations").classList.add("active");
+        return;
+    }
     setTimeout(() => {
         var active = document.getElementById(nom);
         if (active == null) {

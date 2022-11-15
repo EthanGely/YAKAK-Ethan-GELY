@@ -17,19 +17,35 @@ async function getDestinations() {
     const dest = localStorage.getItem('destinations');
     //S'il n'y a pas de destinations enregistrées, on ajoute la liste de base (contenue dans un fichier)
     //Et on met le contenu de cette liste dans le local storage
-    if (dest === undefined || dest === "[]" || dest === "") {
-        const requestURL = 'src/include/data/destination.json';
+    if (dest === undefined || dest === "[]" || dest === "" || dest === null) {
+        const requestURL = '/src/include/data/destination.json';
         const request = new Request(requestURL);
 
         const response = await fetch(request);
-        destinations = await response.json();
+
+        //let destinationsTemp = await response.json();
+
+        createDestinationsObjects(await response.json());
+
         localStorage.setItem("destinations", JSON.stringify(destinations));
 
 
         //Sinon, on utilise la liste enregistrée
     } else {
-        destinations = JSON.parse(dest);
+        createDestinationsObjects(JSON.parse(dest));
+
     }
+}
+
+function createDestinationsObjects(destFromStorage) {
+    for (let i = 0; i < destFromStorage.length; i++) {
+        let currentDest = destFromStorage[i];
+        destinations.push(new Destination(currentDest['image'], currentDest['destination'], currentDest['offre'], currentDest['prix']));
+    }
+}
+
+function createDestinationJson() {
+
 }
 
 
@@ -96,6 +112,7 @@ function afficheDestinations() {
             let button = document.createElement("button");
             button.innerText = "Découvrir l'offre";
             button.classList.add("destination");
+            button.setAttribute('onclick','setSelectedDestination("' + destinations[i]["destination"] + '")');
 
             //On ajoute le bouton au td, puis le td au tr, et finalement le tr au tbody
             td4.appendChild(button);
@@ -145,7 +162,9 @@ function addDestinations(destinationsToAdd) {
         } else {
             //Sinon, si la destination existe,
             //On trouve son index, et on la remplace par la nouvelle
+            console.log(destinations);
             const index = destinations.indexOf(destinationsToAdd[i]["destination"]);
+            console.log(index)
             if (index > -1) {
                 destinations.splice(index, 1);
                 destinations.push(destinationsToAdd[i]);
@@ -177,23 +196,6 @@ function removeDestination(destToRemove) {
 //Supprime le contenu du local storage
 function clear() {
     localStorage.clear();
-}
-
-//Ajoute une destination dans la liste, puis actualise le tableau (ici codée en brut car la fonction sera utilisée depuis une cli, donc difficile
-//de passer un array bien structuré
-function addDest() {
-    let dest = [{
-        "image": "https://voyagerloin.com/countries/italie.jpg",
-        "destination": "Italie",
-        "offre": "Circuit Venezia, hôtel 4 *",
-        "prix": "8000 €"
-    }];
-    addDestinations(dest);
-}
-
-//Supprime une destination (codée en brut car utilisation depuis cli).
-function rmDest() {
-    removeDestination("Maroc");
 }
 
 ///////////////////////////////////////////////////////
@@ -367,4 +369,10 @@ function deleteRow(tbody, child, i) {
     tbody.removeChild(child);
     destinations.pop(i);
     localStorage.setItem("destinations", JSON.stringify(destinations));
+}
+
+
+function setSelectedDestination(nomDest) {
+    localStorage.setItem("selectedDestination", nomDest);
+    window.location.href = "destinationInfo.html";
 }

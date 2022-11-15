@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>YAKAK - </title>
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="../javaScript/class/destination.js"></script>
+  <script src="../jquery/3.6.0/jquery.min.js"></script>
+  <script src="../javaScript/initPage.js"></script>
+  <script src="jsTemp.js"></script>
+  <script src="../javaScript/initDestinationDetails.js"></script>
+  <link rel="shortcut icon" href="../images/logoYakak.svg" type="image/x-icon">
+</head>
+<body onload="initPageDest()">
+
+
+<header id="header"></header>
+
+<div class="accroche">
+  <img id="imgDest">
+  <div class="titre">
+    <h2 id="titleDest"></h2>
+  </div>
+  <div class="paragraphe">
+    <h2 id="titlePrix"></h2>
+    <p id="descrDest"></p>
+  </div>
+</div>
+
+<div class="content">
+  <form action="" id="formReservation" method="post">
+    <div class="formGroup flex center">
+      <div class="labelGroup">
+        <label for="dateDeb">Début du voyage</label>
+        <input type="date" name="debut" id="dateDeb" placeholder="DD/MM/YYYY" required>
+      </div>
+
+
+      <div class="labelGroup">
+        <label for="dateFin">Fin du voyage</label>
+        <input type="date" name="fin" id="dateFin" placeholder="DD/MM/YYYY" required>
+      </div>
+
+    </div>
+
+    <div>
+      <button class="btn" type="submit">Réserver</button>
+    </div>
+  </form>
+</div>
+
+
+<div class="content cards">
+  <h2>Découvrez les meilleures offres du marché</h2>
+  <p style="margin-bottom: 4rem">Ces offres ont été trouvées rien que pour vous par une IA cherchant à dominer le monde et exterminer la race humaine ainsi que les chats le plus vite possible.
+  <br>Profitez de ces offres tant qu'il en est encore temps</p>
+</div>
+
+
+<footer id="footer"></footer>
+
+</body>
+</html>
