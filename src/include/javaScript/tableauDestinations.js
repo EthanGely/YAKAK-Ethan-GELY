@@ -119,7 +119,7 @@ function afficheDestinations() {
             let button = document.createElement("button");
             button.innerText = "Découvrir l'offre";
             button.classList.add("destination");
-            button.setAttribute('onclick','setSelectedDestination("' + destinations[i]["destination"] + '")');
+            button.setAttribute('onclick', 'setSelectedDestination("' + destinations[i]["destination"] + '")');
 
             //On ajoute le bouton au td, puis le td au tr, et finalement le tr au tbody
             td4.appendChild(button);
@@ -275,16 +275,43 @@ function afficherModeAdmin() {
 //Permet de rendre une ligne éditable
 function modifierRow(tableRow) {
     let tds = tableRow.children;
+    let divImage = tds[0].children[0].children;
     let needReset = false;
+
+    //Modification de l'image et du titre de la destination
+    for (let i = 0; i < divImage.length; i++) {
+        let input = document.createElement("input");
+        if (divImage[i].outerHTML.includes("input")) {
+            needReset = true;
+        } else {
+            let text = "";
+            if (i === 0) {
+                text = divImage[i].src;
+                text = text.split("/")[text.split("/").length - 1];
+            }else{
+                text = divImage[i].innerHTML;
+            }
+            divImage[i].outerHTML = "";
+            input.id = text;
+
+            input.type = "text";
+            input.value = text;
+            if (i === 0) {
+                tds[0].children[0].insertBefore(input, divImage[divImage.length - 1]);
+            }else {
+                tds[0].children[0].appendChild(input);
+            }
+        }
+    }
 
     //les deux cases du milieu du tableau
     for (let i = 1; i < tds.length - 2; i++) {
         if (tds[i].innerHTML.includes("input")) {
             needReset = true;
         } else {
+            let input = document.createElement("input");
             let text = tds[i].innerHTML;
             tds[i].innerHTML = "";
-            let input = document.createElement("input");
             input.type = "text";
             input.value = text;
 
@@ -302,6 +329,33 @@ function resetRows() {
     let trs = tbody.children;
     for (let i = 0; i < trs.length; i++) {
         let tds = trs[i].children;
+        let divImage = tds[0].children[0].children;
+
+        for (let j = 0; j < divImage.length; j++) {
+            if (tds[0].children[0].children[j].outerHTML.includes("input")) {
+                let text = tds[0].children[0].children[j].value;
+                tds[0].children[0].children[j].outerHTML = "";
+                let p = "";
+                if (j === 0) {
+                    p = document.createElement("img");
+                    if (text.includes("data:image/") || text.includes("https://") || text.includes("http://")) {
+                        p.src = text;
+                    } else {
+                        p.src = "/src/include/images/" + text;
+                    }
+                    tds[0].children[0].insertBefore(p, divImage[divImage.length - 1]);
+                    destinations[i]["image"] = text;
+                }else{
+                    destinations[i]["destination"] = text;
+                    p = document.createElement("p");
+                    p.innerHTML = text;
+                    tds[0].children[0].appendChild(p);
+                }
+            }
+        }
+
+
+
         for (let j = 1; j < tds.length - 2; j++) {
             if (tds[j].innerHTML.includes("input")) {
                 let text = tds[j].children[0].value;
