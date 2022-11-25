@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>YAKAK - accueil</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="shortcut icon" href="../images/logoYakak.svg" type="image/x-icon">
-    <script src="../jquery/3.6.0/jquery.min.js"></script>
-    <script src="../javaScript/initPage.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+    <link rel="shortcut icon" href="../../../../Common/images/logoYakak.svg" type="image/x-icon">
+    <script src="../../../../Common/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../../../Common/javaScript/initPage.js"></script>
 </head>
 <body>
 
@@ -15,13 +13,14 @@
 <header id="header"></header>
 
 <div class="accroche">
-    <img src="../images/hublotAvion.png" alt="Vue depuis le hublot d'un avion">
+    <img src="../../../../Common/images/hublotAvion.png" alt="Vue depuis le hublot d'un avion">
     <div class="titre">
         <h2>Contactez nous</h2>
-        <a href="#formContact"><button>Commencer le formulaire</button></a>
+        <a href="#formContact">
+            <button>Commencer le formulaire</button>
+        </a>
     </div>
 </div>
-
 
 
 <div class="content black">
@@ -62,9 +61,8 @@
             <div class="formGroup flex center">
                 <div class="labelGroup">
                     <label for="message">Message</label>
-                    <textarea name="message" id="message" rows="10" placeholder="Qu'avez vous sur le coeur ?" required></textarea>
-                    <!-- Ligne qui permet de créer une zone de texte avec outils de mise en page -->
-                    <script>ClassicEditor.create( document.querySelector( '#message' )).catch( error => {console.error( error );} );</script>
+                    <textarea name="message" id="message" rows="10" placeholder="Qu'avez vous sur le coeur ?"
+                              required></textarea>
                 </div>
 
             </div>

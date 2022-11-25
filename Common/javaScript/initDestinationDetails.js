@@ -111,5 +111,5 @@ function shuffledest() {
 }
 
 function logout() {
-    window.location.href = "/YAKAK-Ethan-GELY/src/include/site/destinations.html";
+    window.location.href = "../../TP03/src/include/site/destinations.html";
 }

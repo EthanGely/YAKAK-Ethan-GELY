@@ -1,6 +1,6 @@
 $(function(){
-    $("#header").load("common/header.html");
-    $("#footer").load("common/footer.html");
+    $("#header").load("/Common/header_footer/header.html");
+    $("#footer").load("/Common/header_footer/footer.html");
     $(function() {
         setTimeout(() => {  init(); }, 500);
     });
