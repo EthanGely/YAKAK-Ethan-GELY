@@ -1,0 +1,57 @@
+<div class="flex">
+    <div class="titre">
+        <a class="noStyle" href="accueil.html"><h1>YAKAK <span>Grenoble</span></h1></a>
+    </div>
+
+    <div class="menu">
+        <menu class="flex">
+            <button id="btnMenuMobile" onclick="showMenu()"></button>
+            <nav id="nav">
+                <li><a href="accueil.html" id="accueil">Accueil</a></li>
+                <li><a href="destinations.html" id="destinations">Destination</a></li>
+                <li>
+                    <button id="perso" onclick="actionSousMenu('sousMenu1')">Mon espace</button>
+                    <div class="sousMenu" id="sousMenu1">
+                        <ul class="flex column">
+                            <li><a href="perso.html#connexion" id="connexion">Connexion</a></li>
+                            <li>
+                                <button id="infos" onclick="actionSousMenu('sousMenu1-1')">Mes informations</button>
+                                <div class="sousMenu sousMenu1" id="sousMenu1-1">
+                                    <ul>
+                                        <li><a href="perso.html">Nom et prénom</a></li>
+                                        <li><a href="perso.html">Numéro de téléphone</a></li>
+                                        <li><a href="perso.html">Email</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li><a href="perso.html#messages" id="msg">Messagerie</a></li>
+                            <li><a href="perso.html#historique" id="hist">Historique</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <button id="voyage" onclick="actionSousMenu('sousMenu2')">Voyage virtuel</button>
+                    <div class="sousMenu" id="sousMenu2">
+                        <ul class="flex column">
+                            <li><a href="voyageAudio.html" id="voyageAudio">Voyage audio</a></li>
+                            <li><a href="voyageVideo.html" id="voyageVideo">Voyage vidéo</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a href="contact.html" id="contact">Contactez-nous</a></li>
+
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">VERSION</button>
+                        <div class="dropdown-content">
+                            <a href="/FRONT-END/YAKAK-Ethan-GELY/TP01/src/accueil.html">TP 01</a>
+                            <a href="/FRONT-END/YAKAK-Ethan-GELY/TP02/src/accueil.html">TP 02</a>
+                            <a href="/FRONT-END/YAKAK-Ethan-GELY/TP03/src/accueil.html">TP 03</a>
+                            <a href="/FRONT-END/YAKAK-Ethan-GELY/TP04/src/accueil.html">TP 04</a>
+                        </div>
+                    </div>
+                </li>
+            </nav>
+        </menu>
+    </div>
+</div>

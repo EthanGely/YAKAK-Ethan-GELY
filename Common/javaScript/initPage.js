@@ -1,6 +1,11 @@
 $(function(){
-    $("#header").load("/Common/header_footer/header.html");
-    $("#footer").load("/Common/header_footer/footer.html");
+    if (window.location.pathname.includes("TP04")) {
+        $("#header").load("/FRONT-END/YAKAK-Ethan-GELY/Common/header_footer/headerTP04.html");
+    } else {
+        $("#header").load("/FRONT-END/YAKAK-Ethan-GELY/Common/header_footer/header.html");
+    }
+
+    $("#footer").load("/FRONT-END/YAKAK-Ethan-GELY/Common/header_footer/footer.html");
     $(function() {
         setTimeout(() => {  init(); }, 500);
     });
@@ -81,4 +86,17 @@ function afficherWarning() {
         }
 
     }
+}
+
+function showMenu() {
+    let nav = document.getElementById("nav");
+    let btn = document.getElementById("btnMenuMobile");
+    if (nav.classList.contains("expanded")) {
+        nav.classList.remove("expanded");
+        btn.classList.remove("expanded");
+    } else {
+        nav.classList.add("expanded");
+        btn.classList.add("expanded");
+    }
+
 }

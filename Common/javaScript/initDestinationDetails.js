@@ -22,11 +22,11 @@ function initPageDest() {
                 if (selectedDestination["image"].includes("data:image/") || selectedDestination["image"].includes("https://") || selectedDestination["image"].includes("http://")) {
                     document.getElementById("imgDest").src = selectedDestination["image"];
                 } else {
-                    document.getElementById("imgDest").src = "/src/include/images/" + selectedDestination["image"];
+                    document.getElementById("imgDest").src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + selectedDestination["image"];
                 }
                 document.getElementById("titleDest").innerHTML = selectedDestination["destination"];
                 document.getElementById("titlePrix").innerHTML = "Un voyage en " + selectedDestination["destination"] + " pour " + selectedDestination["prix"] + " ? Une aubaine !";
-                document.getElementById("descrDest").innerHTML = 'Profitez d\'un voyage complet en ' + selectedDestination["destination"] + ' pour la ridicule somme de ' + selectedDestination["prix"] +'.<br>Cette offre comprend le vol, l\'hôtel, le petit déjeuner, le goûter de 14h et de 16h30, mais aussi un bon d\'achat journalier de 30€ à dépenser dans tous les produits<span class="nutriscore"><img src="../images/nutri-score.png" alt="nutri-score"/> </span> uniquement.<br>Dépechez-vous, il ne reste que <strong>' + Math.floor(Math.random() * 10 + 1) + '</strong> offres !'
+                document.getElementById("descrDest").innerHTML = 'Profitez d\'un voyage complet en ' + selectedDestination["destination"] + ' pour la ridicule somme de ' + selectedDestination["prix"] +'.<br>Cette offre comprend le vol, l\'hôtel, le petit déjeuner, le goûter de 14h et de 16h30, mais aussi un bon d\'achat journalier de 30€ à dépenser dans tous les produits<span class="nutriscore"><img src="/FRONT-END/YAKAK-Ethan-GELY/Common/images/nutri-score.png" alt="nutri-score"/> </span> uniquement.<br>Dépechez-vous, il ne reste que <strong>' + Math.floor(Math.random() * 10 + 1) + '</strong> offres !'
 
                 loadOtherDest();
             } else {
@@ -60,7 +60,7 @@ function loadOtherDest() {
         if (destinations[i]["image"].includes("data:image/") || destinations[i]["image"].includes("https://") || destinations[i]["image"].includes("http://")) {
             img.src = destinations[i]["image"];
         } else {
-            img.src = "/src/include/images/" + destinations[i]["image"];
+            img.src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + destinations[i]["image"];
         }
         img.alt = destinations[i]["destination"];
         img.classList.add("card-img");
@@ -111,5 +111,5 @@ function shuffledest() {
 }
 
 function logout() {
-    window.location.href = "../../TP03/src/include/site/destinations.html";
+    window.location.href = "../../TP03/src/destinations.html";
 }

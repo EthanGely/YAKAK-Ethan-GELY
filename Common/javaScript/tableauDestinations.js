@@ -23,7 +23,7 @@ async function getDestinations() {
     //S'il n'y a pas de destinations enregistrées, on ajoute la liste de base (contenue dans un fichier)
     //Et on met le contenu de cette liste dans le local storage.
     if (dest === undefined || dest === "[]" || dest === "" || dest === null) {
-        const requestURL = '/src/include/data/destination.json';
+        const requestURL = '/FRONT-END/YAKAK-Ethan-GELY/Common/data/destination.json';
         const request = new Request(requestURL);
 
         const response = await fetch(request);
@@ -46,6 +46,7 @@ async function getDestinations() {
 //Crée tous les objets destination, et les ajoute à la liste globale.
 function createDestinationsObjects(destFromStorage) {
     //Pour chaque destination
+    destinations = [];
     for (let i = 0; i < destFromStorage.length; i++) {
         //On récupère la destination courante
         let currentDest = destFromStorage[i];
@@ -65,16 +66,26 @@ function afficheDestinations() {
     let tbody = document.getElementById("bodyDestination");
     tbody.innerHTML = "";
 
+    let allCards = document.getElementById("allCards");
+    if (allCards != null) {
+        allCards.innerHTML = "";
+    }
+
     //Si le tableau n'est pas affiché, on le crée avec les destinations de la variable globale
     if (!isShown) {
+        //On récupère l'entête du tableau
         let thead = document.getElementById("trHeadDestination");
 
+        //Si le tableau est en mode edition, on le remet en mode normal
         if (thead.lastChild.innerHTML === "Edition") {
             thead.removeChild(thead.lastChild);
         }
 
         //Pour chaque nouvelle destination
         for (let i = 0; i < destinations.length; i++) {
+
+            /////////////////////////////////////////////////////////////////////
+            ////////////////////PARTIE TABLEAU///////////////////////////////
             //On crée un élément <tr> (une ligne)
             let tr = document.createElement("tr");
 
@@ -89,7 +100,7 @@ function afficheDestinations() {
             if (destinations[i]["image"].includes("data:image/") || destinations[i]["image"].includes("https://") || destinations[i]["image"].includes("http://")) {
                 img.src = destinations[i]["image"];
             } else {
-                img.src = "/src/include/images/" + destinations[i]["image"];
+                img.src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + destinations[i]["image"];
             }
             //Puis le texte alt de l'image sera "image" + destination
             img.alt = "Image " + destinations[i]["destination"];
@@ -127,6 +138,59 @@ function afficheDestinations() {
             tr.appendChild(td4);
 
             tbody.appendChild(tr);
+            ///////////////////////////////////////////////////
+
+            ///////////////PARTIE CARTE////////////////////////
+            if (allCards != null) {
+
+                let divCard = document.createElement("div");
+                divCard.classList.add("card");
+                divCard.style = "width: 18rem;";
+                allCards.appendChild(divCard);
+
+                let imgDest = document.createElement("img");
+                imgDest.classList.add("card-img-top");
+                imgDest.setAttribute('onclick', 'setSelectedDestination("' + destinations[i]["destination"] + '")');
+                if (destinations[i]["image"].includes("data:image/") || destinations[i]["image"].includes("https://") || destinations[i]["image"].includes("http://")) {
+                    imgDest.src = destinations[i]["image"];
+                } else {
+                    imgDest.src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + destinations[i]["image"];
+                }
+                //Puis le texte alt de l'image sera "image" + destination
+                imgDest.alt = "Image " + destinations[i]["destination"];
+                divCard.appendChild(imgDest);
+
+
+                let divBodyCard = document.createElement("div");
+                divBodyCard.classList.add("card-body");
+                divCard.appendChild(divBodyCard);
+
+
+                let titleDest = document.createElement("h5");
+                titleDest.classList.add('card-title');
+                titleDest.innerHTML = destinations[i]["destination"].substring(0, 1).toUpperCase() + destinations[i]["destination"].substring(1);
+                divBodyCard.appendChild(titleDest);
+
+
+                let offre = document.createElement("p");
+                offre.classList.add("card-text");
+                offre.innerHTML = destinations[i]["offre"];
+                divBodyCard.appendChild(offre);
+
+
+                let prix = document.createElement("p");
+                prix.classList.add("card-text");
+                prix.innerHTML = destinations[i]["prix"];
+                divBodyCard.appendChild(prix);
+
+
+                let btnCard = document.createElement("button");
+                btnCard.innerText = "Découvrir l'offre";
+                btnCard.classList.add("destination");
+                btnCard.setAttribute('onclick', 'setSelectedDestination("' + destinations[i]["destination"] + '")');
+                divBodyCard.appendChild(btnCard);
+            }
+
 
         }
 
@@ -233,12 +297,19 @@ function afficherModeAdmin() {
     let thead = document.getElementById("trHeadDestination");
     let tableRows = tbody.children;
 
+    let allCards = document.getElementById("allCards");
+    let cards = null;
+    if (allCards != null) {
+        cards = allCards.children;
+    }
+
     if (isAdmin) {
         let tdHead = document.createElement("td");
         tdHead.innerHTML = "Edition";
         thead.appendChild(tdHead);
 
 
+        //Il y a autant de lignes dans le tableau qu'il y a de cartes
         for (let i = 0; i < tableRows.length; i++) {
             let tdBody = document.createElement("td");
             let button = document.createElement("button");
@@ -258,6 +329,24 @@ function afficherModeAdmin() {
             tdBody.appendChild(button2);
 
             tableRows[i].appendChild(tdBody);
+
+            if (allCards != null && cards != null) {
+                let btnCard = document.createElement("button");
+                btnCard.classList.add("btn");
+                btnCard.innerHTML = "éditer";
+                btnCard.onclick = function () {
+                    modifierCard(i)
+                };
+                cards[i].children[1].appendChild(btnCard);
+
+                let btnCard2 = document.createElement("button");
+                btnCard2.classList.add("btn");
+                btnCard2.innerHTML = "❌";
+                btnCard2.onclick = function () {
+                    deleteCard(i)
+                };
+                cards[i].children[1].appendChild(btnCard2);
+            }
         }
     } else {
         if (thead.lastChild.innerHTML === "Edition") {
@@ -265,12 +354,104 @@ function afficherModeAdmin() {
 
             for (let i = 0; i < tableRows.length; i++) {
                 tableRows[i].removeChild(tableRows[i].lastChild);
+
+                if (allCards != null && cards != null) {
+                    cards[i].children[1].removeChild(cards[i].children[1].lastChild);
+                    cards[i].children[1].removeChild(cards[i].children[1].lastChild);
+                }
             }
         }
     }
-
-
 }
+
+
+function modifierCard(i) {
+    let allCards = document.getElementById("allCards");
+    let cards = null;
+    let needsReset = false;
+    let text;
+
+    let imageEdit;
+    let titleEdit;
+    let offreEdit;
+    let priceEdit;
+
+
+    if (allCards != null) {
+        cards = allCards.children;
+        if (cards != null && cards[i] != null) {
+            if (cards[i].children[0].outerHTML.includes("input")) {
+                needsReset = true;
+            } else {
+                text = "";
+                text = cards[i].children[0].src;
+                if (!text.includes("data:image") && text.includes("YAKAY")) {
+                    text = text.split("/")[text.split("/").length - 1];
+                }
+                imageEdit = document.createElement("input");
+                imageEdit.value = text;
+
+                cards[i].insertBefore(imageEdit, cards[i].children[0]);
+                cards[i].removeChild(cards[i].children[1]);
+            }
+
+            if (cards[i].children[1].children[0].outerHTML.includes("input")) {
+                needsReset = true;
+            } else {
+                text = "";
+                text = cards[i].children[1].children[0].innerHTML;
+                titleEdit = document.createElement("input");
+                titleEdit.value = text;
+
+                cards[i].children[1].insertBefore(titleEdit, cards[i].children[1].children[0]);
+                cards[i].children[1].removeChild(cards[i].children[1].children[1]);
+            }
+
+            if (cards[i].children[1].children[1].outerHTML.includes("input")) {
+                needsReset = true;
+            } else {
+                text = "";
+                text = cards[i].children[1].children[1].innerHTML;
+                offreEdit = document.createElement("input");
+                offreEdit.value = text;
+
+                cards[i].children[1].insertBefore(offreEdit, cards[i].children[1].children[1]);
+                cards[i].children[1].removeChild(cards[i].children[1].children[2]);
+            }
+
+            if (cards[i].children[1].children[2].outerHTML.includes("input")) {
+                needsReset = true;
+            } else {
+                text = "";
+                text = cards[i].children[1].children[2].innerHTML;
+                priceEdit = document.createElement("input");
+                priceEdit.value = text;
+
+                cards[i].children[1].insertBefore(priceEdit, cards[i].children[1].children[2]);
+                cards[i].children[1].removeChild(cards[i].children[1].children[3]);
+            }
+
+            if (needsReset) {
+                resetRows();
+            }
+        }
+    }
+}
+
+function deleteCard(i) {
+    let allCards = document.getElementById("allCards");
+    let cards = null;
+
+    if (allCards != null) {
+        cards = allCards.children;
+        if (cards != null && cards[i] != null) {
+            cards[i].outerHTML = "";
+            destinations.splice(i, 1);
+            localStorage.setItem("destinations", JSON.stringify(destinations));
+        }
+    }
+}
+
 
 //Permet de rendre une ligne éditable
 function modifierRow(tableRow) {
@@ -288,7 +469,7 @@ function modifierRow(tableRow) {
             if (i === 0) {
                 text = divImage[i].src;
                 text = text.split("/")[text.split("/").length - 1];
-            }else{
+            } else {
                 text = divImage[i].innerHTML;
             }
             divImage[i].outerHTML = "";
@@ -298,7 +479,7 @@ function modifierRow(tableRow) {
             input.value = text;
             if (i === 0) {
                 tds[0].children[0].insertBefore(input, divImage[divImage.length - 1]);
-            }else {
+            } else {
                 tds[0].children[0].appendChild(input);
             }
         }
@@ -318,6 +499,8 @@ function modifierRow(tableRow) {
             tds[i].appendChild(input);
         }
     }
+
+
     if (needReset) {
         resetRows();
     }
@@ -341,11 +524,11 @@ function resetRows() {
                     if (text.includes("data:image/") || text.includes("https://") || text.includes("http://")) {
                         p.src = text;
                     } else {
-                        p.src = "/src/include/images/" + text;
+                        p.src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + text;
                     }
                     tds[0].children[0].insertBefore(p, divImage[divImage.length - 1]);
                     destinations[i]["image"] = text;
-                }else{
+                } else {
                     destinations[i]["destination"] = text;
                     p = document.createElement("p");
                     p.innerHTML = text;
@@ -353,7 +536,6 @@ function resetRows() {
                 }
             }
         }
-
 
 
         for (let j = 1; j < tds.length - 2; j++) {
@@ -369,6 +551,88 @@ function resetRows() {
         }
 
     }
+
+    let allCards = document.getElementById("allCards");
+    let cards = null;
+    if (allCards != null) {
+        cards = allCards.children;
+        if (cards != null) {
+            for (let i = 0; i < cards.length; i++) {
+                let divCardBody = document.createElement("div");
+                divCardBody.classList.add("card-body");
+
+                //Modification Image
+                let textImage = cards[i].children[0].value;
+                if (textImage != null) {
+                    let imageCard = document.createElement("img");
+                    if (textImage.includes("data:image/") || textImage.includes("https://") || textImage.includes("http://")) {
+                        imageCard.src = textImage;
+                    } else {
+                        imageCard.src = "/FRONT-END/YAKAK-Ethan-GELY/Common/images/" + textImage;
+                    }
+                    imageCard.classList.add("card-img-top");
+                    imageCard.setAttribute('onclick', 'setSelectedDestination("' + destinations[i]["destination"] + '")');
+
+
+                    let titleDestEdition = cards[i].children[1].children[0].value;
+                    let titreDest = document.createElement("h5");
+                    titreDest.classList.add("card-title");
+                    titreDest.innerHTML = titleDestEdition;
+
+                    let offretext = cards[i].children[1].children[1].value;
+                    let offre = document.createElement("p");
+                    offre.classList.add("card-text");
+                    offre.innerHTML = offretext;
+
+                    let prixText = cards[i].children[1].children[2].value;
+                    let prix = document.createElement("p");
+                    prix.classList.add("card-text");
+                    prix.innerHTML = prixText;
+
+                    let btnCard = document.createElement("button");
+                    btnCard.innerText = "Découvrir l'offre";
+                    btnCard.classList.add("destination");
+                    btnCard.setAttribute('onclick', 'setSelectedDestination("' + destinations[i]["destination"] + '")');
+
+
+                    cards[i].innerHTML = "";
+
+                    cards[i].appendChild(imageCard);
+                    destinations[i]["image"] = textImage;
+
+                    cards[i].appendChild(divCardBody);
+
+                    divCardBody.appendChild(titreDest);
+                    destinations[i]["destination"] = titleDestEdition;
+
+                    divCardBody.appendChild(offre);
+                    destinations[i]["offre"] = offretext;
+
+                    divCardBody.appendChild(prix);
+                    destinations[i]["prix"] = prixText;
+
+                    divCardBody.appendChild(btnCard);
+
+                    let btnEdit = document.createElement("button");
+                    btnEdit.classList.add("btn");
+                    btnEdit.innerHTML = "éditer";
+                    btnEdit.onclick = function () {
+                        modifierCard(i)
+                    };
+                    divCardBody.appendChild(btnEdit);
+
+                    let btnDelete = document.createElement("button");
+                    btnDelete.classList.add("btn");
+                    btnDelete.innerHTML = "❌";
+                    btnDelete.onclick = function () {
+                        deleteCard(i)
+                    };
+                    divCardBody.appendChild(btnDelete);
+                }
+            }
+        }
+    }
+
     localStorage.setItem("destinations", JSON.stringify(destinations));
 }
 
@@ -383,10 +647,7 @@ function ajouterDestination() {
                 let prix = prompt("Entrez le prix avec la devise :");
                 if (prix != null && prix != "") {
                     let dest = [{
-                        "image": image,
-                        "destination": nomDest,
-                        "offre": offre,
-                        "prix": prix
+                        "image": image, "destination": nomDest, "offre": offre, "prix": prix
                     }];
                     addDestinations(dest);
                 }

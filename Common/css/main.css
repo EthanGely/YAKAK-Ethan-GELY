@@ -113,7 +113,8 @@ a button:hover, .btn:hover {
     position: sticky;
     left: 95%;
     top: 20rem;
-    display:inline-block
+    display: inline-block;
+    z-index: 1;
 }
 
 .sticky a button {
@@ -305,21 +306,21 @@ h3 {
     padding-top: 1rem;
 }
 
-.offresDest table tbody tr:nth-child(even){
+.offresDest table tbody tr:nth-child(even) {
     background: #90eff57d;
     transition: all 0.3s;
 }
 
-.offresDest table tbody tr:nth-child(odd){
+.offresDest table tbody tr:nth-child(odd) {
     background: #34d3d314;
     transition: all 0.3s;
 }
 
-.offresDest table tbody tr:nth-child(even):hover{
+.offresDest table tbody tr:nth-child(even):hover {
     background: #8feef5;
 }
 
-.offresDest table tbody tr:nth-child(odd):hover{
+.offresDest table tbody tr:nth-child(odd):hover {
     background: #36d3d3;
 }
 
@@ -376,7 +377,9 @@ h3 {
     transform: translateY(25%);
     top: 0;
     transition: all 0.3s;
+    font-family: sans-serif;
 }
+
 .destination:hover::before {
     left: 82%;
 }
@@ -413,7 +416,7 @@ h3 {
     border: 1px solid #ced4da;
     appearance: none;
     border-radius: .375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     margin-top: 0.2rem;
 }
 
@@ -485,7 +488,6 @@ h3 {
     width: 20rem;
     height: auto;
 }
-
 
 
 .videoContent {
@@ -620,7 +622,7 @@ audio {
     position: absolute;
     background-color: #85d7dc;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -633,10 +635,44 @@ audio {
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {}
+.dropdown:hover .dropbtn {
+}
+
+
+.autheur {
+    font-size: 1rem;
+    text-decoration: underline;
+    font-style: italic;
+    text-align: end;
+    display: block;
+    transform: translateX(-30%);
+}
+
+.citation {
+    padding-top: 2rem;
+    font-style: italic;
+    display: block;
+}
+
+.citation::before {
+    content: url('/FRONT-END/YAKAK-Ethan-GELY/Common/images/quote.svg');
+    position: relative;
+    left: -10px;
+}
+
+.citation::after {
+    content: url('/FRONT-END/YAKAK-Ethan-GELY/Common/images/quote-down.svg');
+    position: relative;
+    top: 15px;
+    right: -10px;
+}

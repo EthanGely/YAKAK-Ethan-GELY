@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>YAKAK - Mon espace</title>
+    <link rel="shortcut icon" href="../../Common/images/logoYakak.svg" type="image/x-icon">
+    <script src="../../Common/jquery/3.6.0/jquery.min.js"></script>
+    <script src="../../Common/javaScript/initPage.js"></script>
+</head>
+<body>
+
+<header id="header"></header>
+
+<div class="content">
+
+    <ul class="menu">
+        <li>
+            <a href="" id="connexion">Connexion</a>
+        </li>
+
+        <li>
+            <a href="" id="informations">Mes informations</a>
+            <div class="sousMenu1">
+                <ol>
+                    <li>Jason Bourne</li>
+                    <li>04 91 08 59 89</li>
+                    <li>jason@thebourneidentity.com</li>
+                </ol>
+            </div>
+        </li>
+        <li><a href="" id="msg">Messagerie</a></li>
+        <li><a href="" id="hist">Historique des commandes</a></li>
+    </ul>
+</div>
+
+
+<div style="display: none">
+    <h2>Mes informations</h2>
+    <form action="">
+        <div class="row">
+            <label for="firstName" class="form-label">Prénom</label>
+            <input id="firstName" type="text" value="">
+
+            <label for="lastName" class="form-label">Nom</label>
+            <input id="lastName" type="text" value="">
+        </div>
+
+        <div class="row">
+            <label for="phone" class="form-label">Téléphone (mobile)</label>
+            <input id="phone" type="tel" value="">
+
+            <label for="mail" class="form-label">Adresse mail</label>
+            <input id="mail" type="email" value="">
+        </div>
+
+        <div class="row">
+            <label for="address" class="form-label">Adresse postale</label>
+            <input id="address" type="text" value="">
+
+            <label for="complement" class="form-label">Complément d'adresse</label>
+            <input id="complement" type="text" value="">
+        </div>
+
+        <div class="row">
+            <label for="country" class="form-label">Pays</label>
+            <input id="country" type="text" value="">
+        </div>
+
+        <div class="row">
+            <label for="zipcode" class="form-label">Code postal</label>
+            <input id="zipcode" type="text" value="">
+
+            <label for="city" class="form-label">Ville</label>
+            <input id="city" type="text" value="" disabled>
+        </div>
+
+
+        <button type="submit">Mettre à jour les informations</button>
+    </form>
+</div>
+
+
+<div>
+    <h2>Messagerie</h2>
+</div>
+
+
+<h2>Historique des commandes</h2>
+
+<footer id="footer"></footer>
+</body>
+</html>
