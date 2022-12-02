@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>YAKAK - Voyage vidéo</title>
-    <link rel="stylesheet" href="../../Common/css/mainTP04.css">
-    <link rel="stylesheet" href="../../Common/css/responsive.css" type="text/css">
-    <link rel="shortcut icon" href="../../Common/images/logoYakak.svg" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-    <script src="../../Common/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../../Common/javaScript/initPage.js"></script>
-    <script src="../../Common/javaScript/tableauDestinations.js"></script>
-</head>
-<body>
-
-
 <header id="header"></header>
 
 <div class="content">
@@ -22,9 +5,9 @@
         <h2>En exclusivité sur <span class="yakak">YAKAK</span></h2>
         <p>Découvrez en grande exclusivité sur <span class="yakak">YAKAK</span> les voyages virtuels vidéos. Explorez les mystères de la forêt Amazonienne sans bouger de votre canapé en cuir humain.
             <br>Bien évidemment, ces voyages sont totalement gratuits car en acceptant les conditions d'utilisations, vous nous avez déjà vendu votre âme.</p>
-        <button id="btnWarning" class="btn btn-primary" onclick="afficherWarning()">L'audio ne se lance pas automatiquement ?</button>
+        <button id="btnWarning" class="btn" onclick="afficherWarning()">L'audio ne se lance pas automatiquement ?</button>
         <p class="warning visuallyHidden">Si vous êtes sur Firefox et que la lecture automatique ne fonctionne pas, cherchez à gauche de l'URL</p>
-        <a href="voyageAudio.html"><button class="btn btn-primary">Découvrez les voyages audios</button></a>
+        <a onclick="loadPage('voyageAudio.html')"><button>Découvrez les voyages audios</button></a>
     </div>
 
 
@@ -35,7 +18,7 @@
             <p>Prenez votre envol et découvrez la ville sous un nouvel angle. Plongez entre les grattes-ciels et découvrez les rues de New-York City tel un pigeon.</p>
         </div>
         <video width="100%" height="100%" autoplay loop muted preload="auto" controls>
-            <source src="../../Common/videos/new-york.mp4" type="video/mp4">
+            <source src="../Common/videos/new-york.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de cette vidéo. Vous pouvez tout de même profiter du voyage
             audio!
         </video>
@@ -47,7 +30,7 @@
             <p>Plongez-vous dans les rapides Canadiens et défiez les eaux torrentielles. Rassurez-vous, les éclaboussures ne passent pas à travers l'écran.</p>
         </div>
         <video width="100%" height="100%" loop muted preload="auto" controls>
-            <source src="../../Common/videos/kayak.mp4" type="video/mp4">
+            <source src="../Common/videos/kayak.mp4" type="video/mp4">
             Votre navigateur ne supporte pas la lecture de cette vidéo. Vous pouvez tout de même profiter du voyage
             audio!
         </video>
@@ -56,5 +39,3 @@
 </div>
 
 <footer id="footer"></footer>
-</body>
-</html>

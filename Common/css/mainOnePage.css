@@ -113,8 +113,7 @@ a button:hover, .btn:hover {
     position: sticky;
     left: 95%;
     top: 20rem;
-    display: inline-block;
-    z-index: 1;
+    display:inline-block
 }
 
 .sticky a button {
@@ -163,21 +162,16 @@ h3 {
     margin: 0;
 }
 
-.menu menu nav {
-    display: flex;
-    width: 100%;
-}
-
 .menu menu {
     width: 100%;
     list-style-type: none;
 }
 
-.menu menu nav li {
+.menu menu li {
     margin: auto;
 }
 
-.menu menu nav li a {
+.menu menu li a {
     color: black;
     text-decoration: none;
     font-family: Tropical, sans-serif;
@@ -186,27 +180,23 @@ h3 {
     display: inline-block;
 }
 
-.menu menu nav li button {
+.menu menu li button {
     border: 0;
     background-color: transparent;
     cursor: pointer;
     font-family: Tropical, sans-serif;
-    font-size: 1.35rem !important;
+    font-size: 1.35rem;
     position: relative;
     display: inline-block;
     padding: 0;
 }
 
-.menu menu nav li .sousMenu button {
-    font-size: 1rem !important;
-}
-
-.menu menu nav li .active::before {
+.menu menu li .active::before {
     width: 100%;
 }
 
 
-.menu menu nav li .sousMenu {
+.menu menu li .sousMenu {
     display: none;
     position: absolute;
     transform: translate(-50%);
@@ -229,19 +219,6 @@ h3 {
     font-size: 1rem;
 }
 
-button {
-    font-size: initial !important;
-}
-
-a:hover {
-    color: initial !important;
-}
-
-.card-img-top {
-    height: 100%;
-}
-
-
 .menu .sousMenu .sousMenu1 ul li a {
     font-size: 0.8rem;
 }
@@ -259,14 +236,12 @@ a:hover {
     transition: all 0.3s;
 }
 
-.menu nav a:hover::before, menu nav button:hover::before {
+.menu a:hover::before, menu button:hover::before {
     width: 100%;
 }
 
 .accroche img {
     width: 100%;
-    max-height: 40rem;
-    object-fit: cover;
 }
 
 .accroche .titre {
@@ -280,11 +255,6 @@ a:hover {
 .accroche .titre h2 {
     font-size: 10rem;
     font-family: Coconut;
-    color: black;
-    margin-top: revert;
-    margin-bottom: revert;
-    font-weight: revert;
-    line-height: revert;
 }
 
 .accroche .paragraphe {
@@ -333,21 +303,21 @@ a:hover {
     padding-top: 1rem;
 }
 
-.offresDest table tbody tr:nth-child(even) {
+.offresDest table tbody tr:nth-child(even){
     background: #90eff57d;
     transition: all 0.3s;
 }
 
-.offresDest table tbody tr:nth-child(odd) {
+.offresDest table tbody tr:nth-child(odd){
     background: #34d3d314;
     transition: all 0.3s;
 }
 
-.offresDest table tbody tr:nth-child(even):hover {
+.offresDest table tbody tr:nth-child(even):hover{
     background: #8feef5;
 }
 
-.offresDest table tbody tr:nth-child(odd):hover {
+.offresDest table tbody tr:nth-child(odd):hover{
     background: #36d3d3;
 }
 
@@ -382,7 +352,7 @@ a:hover {
     height: auto;
 }
 
-.destination {
+.offresDest table tbody tr td button {
     position: relative;
     padding: 1rem 3.25rem;
     border: 0;
@@ -392,11 +362,11 @@ a:hover {
     cursor: pointer;
 }
 
-.destination:hover {
+.offresDest table tbody tr td button:hover {
     background: #0054a1;
 }
 
-.destination::before {
+.offresDest table tbody tr td .destination::before {
     content: '✈';
     position: absolute;
     left: 10%;
@@ -404,10 +374,8 @@ a:hover {
     transform: translateY(25%);
     top: 0;
     transition: all 0.3s;
-    font-family: sans-serif;
 }
-
-.destination:hover::before {
+.offresDest table tbody tr td .destination:hover::before {
     left: 82%;
 }
 
@@ -443,7 +411,7 @@ a:hover {
     border: 1px solid #ced4da;
     appearance: none;
     border-radius: .375rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     margin-top: 0.2rem;
 }
 
@@ -517,6 +485,7 @@ h3 {
 }
 
 
+
 .videoContent {
     margin: 0;
     padding: 0;
@@ -570,104 +539,4 @@ audio {
     border-bottom-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
     transform: translateY(-105%);
-}
-
-.nutriscore {
-    width: 4%;
-    display: inline-block;
-    transform: translateY(15%);
-    margin: 0 0.5rem;
-}
-
-
-
-.destination {
-    position: relative;
-    padding: 1rem 3.25rem;
-    border: 0;
-    border-radius: 2rem;
-    background: #00417d;
-    color: white;
-    cursor: pointer;
-}
-
-
-/* Dropdown Button */
-.dropbtn {
-    color: black;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #85d7dc;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-}
-
-
-.autheur {
-    font-size: 1rem;
-    text-decoration: underline;
-    font-style: italic;
-    text-align: end;
-    display: block;
-    transform: translateX(-30%);
-}
-
-.citation {
-    padding-top: 2rem;
-    font-style: italic;
-    display: block;
-}
-
-.citation::before {
-    content: url('/FRONT-END/YAKAK-Ethan-GELY/Common/images/quote.svg');
-    position: relative;
-    left: -10px;
-}
-
-.citation::after {
-    content: url('/FRONT-END/YAKAK-Ethan-GELY/Common/images/quote-down.svg');
-    position: relative;
-    top: 15px;
-    right: -10px;
-}
-
-
-#btnMenuMobile {
-    display: none;
 }

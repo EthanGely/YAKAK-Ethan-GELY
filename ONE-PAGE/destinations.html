@@ -1,0 +1,58 @@
+<header id="header"></header>
+
+<div class="admin">
+    <a>
+        <button onclick="changeAdmin()" id="changeAdmin">🔒</button>
+    </a>
+</div>
+
+<div class="sticky">
+    <a>
+        <button onclick="toTop()">↑</button>
+    </a>
+</div>
+
+<div class="content">
+    <h2><span class="yakak">YAKAK</span> réalise vos rêves !</h2>
+    <div class="paragraphe">
+        <p>Grâce à <span class="yakak">YAKAK</span>, découvrez des milliers de destinations tout en profitant de
+            promotions défiant votre imagination.<br>
+            Laissez vos envies décider de votre prochain voyage sans craindre pour votre porte-monnaie.</p>
+        <a onclick="init2()">
+            <button>Trouvez-votre destination</button>
+        </a>
+    </div>
+
+    <div class="offresDest" id="destination">
+        <table id="destinations">
+            <thead>
+            <tr id="trHeadDestination">
+                <td>Destination</td>
+                <td>Offre</td>
+                <td>Prix</td>
+                <td>Réserver</td>
+            </tr>
+            </thead>
+
+            <tbody id="bodyDestination">
+
+            <!--
+            //Structure souhaitée d'une destination
+
+            <tr>
+                <td>Espagne<img src="../images/espagne.jpeg" alt="Espagne"></td>
+                <td>Circuit plage, hôtel 4 *</td>
+                <td>800 €</td>
+                <td><button>Découvrir l'offre</button></td>
+            </tr>
+
+            -->
+            </tbody>
+        </table>
+
+        <button id="btnAddDest" class="btn" style="margin-top: 3rem; display: none" onclick="ajouterDestination()">Ajouter des detinations</button>
+    </div>
+
+</div>
+
+<footer id="footer"></footer>
