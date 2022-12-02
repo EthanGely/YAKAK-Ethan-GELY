@@ -314,6 +314,7 @@ function afficherModeAdmin() {
             let tdBody = document.createElement("td");
             let button = document.createElement("button");
             button.classList.add("btn");
+            button.classList.add("btn-warning");
             button.innerHTML = "éditer";
             button.onclick = function () {
                 modifierRow(tableRows[i])
@@ -322,9 +323,10 @@ function afficherModeAdmin() {
 
             let button2 = document.createElement("button");
             button2.classList.add("btn");
+            button2.classList.add("btn-danger");
             button2.innerHTML = "❌";
             button2.onclick = function () {
-                deleteRow(tbody, tableRows[i], i)
+                deleteRow(tbody, tableRows[i], destinations[i])
             };
             tdBody.appendChild(button2);
 
@@ -657,13 +659,25 @@ function ajouterDestination() {
     }
 }
 
-//Supprime une ligne (du tableau, de la variable globale, et du local storage
-function deleteRow(tbody, child, i) {
-    console.log(destinations)
-    console.log(i)
-    tbody.removeChild(child);
-    destinations.splice(i, 1);
+//Supprime une ligne (du tableau, de la variable globale, et du local storage)
+function deleteRow(tbody, child, dest) {
+    tbody = document.getElementById("bodyDestination");
+    let index = -1;
+
+    for (let i = 0; i < tbody.children.length; i++) {
+        let cellName = tbody.children[i].children[0].children[0].innerHTML.split("<p>")[1].split("</p>")[0].toLowerCase();
+
+        if (dest["destination"].toLowerCase() === cellName) {
+            tbody.removeChild(tbody.children[i]);
+            index = i;
+        }
+    }
+    if (index > -1) {
+        destinations.splice(index, 1);
+    }
     localStorage.setItem("destinations", JSON.stringify(destinations));
+    afficheDestinations();
+    afficheDestinations();
 }
 
 //Sert à définir sur quelle destination l'utilisateur a cliqué
