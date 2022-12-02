@@ -439,6 +439,7 @@ function modifierCard(i) {
 }
 
 function deleteCard(i) {
+    console.log("PA OK BORDEL")
     let allCards = document.getElementById("allCards");
     let cards = null;
 
@@ -658,6 +659,8 @@ function ajouterDestination() {
 
 //Supprime une ligne (du tableau, de la variable globale, et du local storage
 function deleteRow(tbody, child, i) {
+    console.log(destinations)
+    console.log(i)
     tbody.removeChild(child);
     destinations.splice(i, 1);
     localStorage.setItem("destinations", JSON.stringify(destinations));
@@ -676,6 +679,7 @@ function setSelectedDestination(nomDest) {
 //Supprime le contenu du local storage
 function clear() {
     localStorage.clear();
+    location.reload();
 }
 
 ///////////////////////////////////////////////////////
